@@ -1,0 +1,26 @@
+# no strip path prefixes
+{{$services := dict}}
+{{$_ := set $services "auth" "http://192.168.30.80:7000"}}
+{{$_ := set $services "graphql" "http://192.168.30.80:4000"}}
+
+http:
+  routers:
+    {{range $name, $url := $services}}
+    {{ $name }}:
+      entryPoints:
+        # - "websecure"
+        - "web"
+      service: service-{{ $name }}
+      # tls: {}
+      rule: PathPrefix(`/{{ $name }}`)
+      middlewares:
+        - 'cors-headers'
+    {{end}}
+  services:
+    {{range $name, $url := $services}}
+    service-{{ $name }}:
+      loadBalancer:
+        servers:
+          - url: {{ $url }}
+        passHostHeader: true
+    {{end}}

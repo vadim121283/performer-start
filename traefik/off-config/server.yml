@@ -1,0 +1,16 @@
+http:
+  routers:
+    server:
+      entryPoints:
+        - server
+      service: service-server
+      middlewares:
+        - 'cors-headers'
+      # tls: {}
+      rule: HostRegexp(`{host:.+}`)
+  services:
+    service-server:
+      loadBalancer:
+        servers:
+          - url: http://192.168.30.80:4000
+        passHostHeader: true

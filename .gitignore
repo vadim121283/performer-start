@@ -1,0 +1,9 @@
+# Database
+/database
+
+# Logs
+/logs
+
+# auth keys
+private.key
+public.key

@@ -1,0 +1,16 @@
+http:
+  routers:
+    client:
+      entryPoints:
+        - web
+      service: service-client
+      middlewares:
+        - 'cors-headers'
+      # tls: {}
+      rule: PathPrefix(`/`)
+  services:
+    service-client:
+      loadBalancer:
+        servers:
+          - url: http://192.168.30.80:3000
+        passHostHeader: true

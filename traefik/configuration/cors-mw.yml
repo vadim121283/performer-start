@@ -1,0 +1,35 @@
+{{$ports := list "3000" "3001" }}
+
+http:
+  middlewares:
+    cors-headers:
+      headers:
+        accessControlAllowMethods:
+          - GET
+          - OPTIONS
+          - PUT
+          - POST
+          - DELETE
+        accessControlAllowOriginList:
+          {{range $i, $port := $ports}}
+          - http://localhost:{{ $port }}
+          {{end}}
+          - https://localhost
+          - http://localhost
+        accessControlAllowHeaders:
+          - DNT
+          - User-Agent
+          - X-Requested-With
+          - If-Modified-Since
+          - Cache-Control
+          - Content-Type
+          - Range
+          - Authorization
+        accessControlAllowCredentials: true
+        accessControlExposeHeaders:
+          - Content-Length
+          - Content-Range
+          - Authorization
+        accessControlMaxAge: 100
+        addVaryHeader: true
+        #IsDevelopment: true

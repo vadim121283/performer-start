@@ -1,0 +1,10 @@
+---
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /tmp/certs/cert.cer
+        keyFile: /tmp/certs/cert.key
+  certificates:
+    - certFile: /tmp/certs/cert.cer
+      keyFile: /tmp/certs/cert.key
